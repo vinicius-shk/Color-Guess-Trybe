@@ -3,11 +3,13 @@ let cores = document.querySelector('.cores');
 let bolaCores = document.querySelector('.cores').children;
 let secaoCores = document.getElementsByTagName('section');
 let corpo = document.body;
+secaoCores[0].appendChild(criaElemento("Escolha uma cor", 'p', 'id', 'answer'));
+secaoCores[0].appendChild(criaElemento('Placar: ' + 0, 'p', 'id', 'score'));
 //Criação de elemento genérico
 function criaElemento(string, tag, id, textoId) {
     let provisorio = document.createElement(tag);
     provisorio.setAttribute(id, textoId);
-    provisorio.innerText = string;
+    provisorio.innerHTML = string;
     return provisorio;
 }
 function rgbGen(elemento) {
@@ -38,12 +40,22 @@ function resposta() {
     escolhaResposta.style.backgroundColor = 'rgb' + rgbHtml.innerHTML;
 }
 //Verificação se o clique foi no elemento com ID especificado
+let contador = 0;
 function verificacao(evento) {
     if (evento.target.id === 'resposta') {
-        secaoCores[0].lastChild.innerText = "Acertou!";
+        contador += 3;
+        secaoCores[0].children[2].innerText = "Acertou!";
+        secaoCores[0].children[3].innerText = 'Placar: ' + contador;
     } else {
-        secaoCores[0].lastChild.innerText = "Errou! Tente novamente!";
+        secaoCores[0].children[2].innerText = "Errou! Tente novamente!";
     }
+}
+function reset() {
+    removeBolas();
+    rgbGen(rgbHtml);
+    geraCores();
+    resposta();
+    document.querySelector('#answer').innerText = "Escolha uma cor";
 }
 function removeBolas() {
     while (cores.firstChild) {
@@ -53,14 +65,6 @@ function removeBolas() {
 rgbGen(rgbHtml);
 geraCores();
 resposta();
-secaoCores[0].appendChild(criaElemento("Escolha uma cor", 'p', 'id', 'answer'));
 corpo.appendChild(criaElemento("Resetar jogo", 'button', 'id', 'reset-game'));
 let botaoReset = document.querySelector('#reset-game');
 botaoReset.addEventListener('click', reset);
-function reset() {
-    removeBolas();
-    rgbGen(rgbHtml);
-    geraCores();
-    resposta();
-    document.querySelector('#answer').innerText = "Escolha uma cor";
-}
