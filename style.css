@@ -7,5 +7,9 @@
     width: 90px;
     height: 90px;
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 30px;
+}
+p {
+    margin-left: 30%;
+    font-size: 25px;
 }
