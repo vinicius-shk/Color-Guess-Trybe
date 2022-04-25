@@ -2,11 +2,13 @@ let rgbHtml = document.getElementById('rgb-color');
 let cores = document.querySelector('.cores');
 let bolaCores = document.querySelector('.cores').children;
 let secaoCores = document.getElementsByTagName('section');
-function textoJogo(string) {
-    let textoDoJogo = document.createElement('p');
-    textoDoJogo.setAttribute('id', 'answer');
-    textoDoJogo.innerText = string;
-    secaoCores[0].appendChild(textoDoJogo);
+let corpo = document.body;
+//Criação de elemento genérico
+function criaElemento(string, tag, id, textoId) {
+    let provisorio = document.createElement(tag);
+    provisorio.setAttribute(id, textoId);
+    provisorio.innerText = string;
+    return provisorio;
 }
 function rgbGen(elemento) {
     let rgb = [];
@@ -43,7 +45,22 @@ function verificacao(evento) {
         secaoCores[0].lastChild.innerText = "Errou! Tente novamente!";
     }
 }
+function removeBolas() {
+    while (cores.firstChild) {
+        cores.removeChild(cores.firstChild);
+    }
+}
 rgbGen(rgbHtml);
 geraCores();
 resposta();
-textoJogo("Escolha uma cor");
+secaoCores[0].appendChild(criaElemento("Escolha uma cor", 'p', 'id', 'answer'));
+corpo.appendChild(criaElemento("Resetar jogo", 'button', 'id', 'reset-game'));
+let botaoReset = document.querySelector('#reset-game');
+botaoReset.addEventListener('click', reset);
+function reset() {
+    removeBolas();
+    rgbGen(rgbHtml);
+    geraCores();
+    resposta();
+    document.querySelector('#answer').innerText = "Escolha uma cor";
+}
