@@ -1,0 +1,11 @@
+.cores {
+    height: 100px;
+}
+.ball {
+    border-radius: 100%;
+    border: solid black 1px;
+    width: 90px;
+    height: 90px;
+    display: inline-block;
+    margin-left: 10px;
+}
