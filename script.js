@@ -46,6 +46,7 @@ function verificacao(evento) {
         contador += 3;
         secaoCores[0].children[2].innerText = "Acertou!";
         secaoCores[0].children[3].innerText = 'Placar: ' + contador;
+        evento.target.removeEventListener('click', verificacao);
     } else {
         secaoCores[0].children[2].innerText = "Errou! Tente novamente!";
     }
